@@ -20,11 +20,12 @@ module.exports = {
     ],
     devServer: {
         hot: true,
-        open: false,
+        open: true,
         port: 3000,
         overlay: true,
         compress: true,
         historyApiFallback: true,
+        writeToDisk: true,
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json'],
