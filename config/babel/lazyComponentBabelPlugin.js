@@ -2,8 +2,6 @@ const core = require('@babel/core');
 const t = require('@babel/types');
 const template = require('@babel/template');
 
-const PluginObj = core.PluginObj;
-
 module.exports = () => ({
     visitor: {
         CallExpression({ node }) {
