@@ -1,0 +1,42 @@
+{
+    // prettier
+    "editor.formatOnSave": true,
+    "json.format.enable": true,
+    "[json]": {
+        "editor.formatOnSave": true
+    },
+    "[css]": {
+        "editor.formatOnSave": true
+    },
+    "[html]": {
+        "editor.formatOnSave": true
+    },
+
+    // stylelint
+    "css.validate": true,
+    "less.validate": false,
+    "scss.validate": false,
+
+    "files.autoSave": "onFocusChange",
+    "files.autoSaveDelay": 1000,
+    "files.eol": "\n",
+
+    // git
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+
+    "workbench.iconTheme": "vs-nomo-dark",
+    "editor.minimap.enabled": false,
+    "workbench.sideBar.location": "left",
+
+    "javascript.updateImportsOnFileMove.enabled": "always",
+
+    "typescript.surveys.enabled": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.rendererType": "experimentalWebgl",
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "typescript.preferences.importModuleSpecifier": "relative"
+}
