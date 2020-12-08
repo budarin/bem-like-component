@@ -1,7 +1,7 @@
 {
     "name": "bem-like-component",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "src/index.tsx",
     "repository": "https://github.com/budarin/bem-like-component.git",
     "author": "Vadim Budarin <budarin-vv@yandex.ru>",
     "license": "MIT",
