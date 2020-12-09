@@ -42,17 +42,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: {
-                                mode: 'local',
-                                localIdentName: '[folder].[name].[local]',
-                            },
-                        },
-                    },
-                ],
+                use: use: ['style-loader', 'css-loader'],
             },
         ],
     },
