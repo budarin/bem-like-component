@@ -70,12 +70,6 @@
         // "experimentalDecorators": true,         /* Включает экспериментальную поддержку для декораторов ES7. */
         // "emitDecoratorMetadata": true,          /* Включает экспериментальную поддержку для создания метаданных типа для декораторов. */
     },
-    "include": [
-        "src",
-        "webpack.config.js",
-        "config/jest/browserTransformer.js",
-        "config/jest/fileMock.js",
-        "jest.config.js"
-    ],
+    "include": ["src"],
     "exclude": ["**/node_modules", "**/.*/", "dist", "config"]
 }
