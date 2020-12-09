@@ -28,9 +28,14 @@ import { Button, withSizeM, withSizeL, withViewDefault, withWidthAuto, withWidth
 
 const Component = compose(withSizeM, withViewDefault)(ButtonDesktop);
 
-export const Button1 = ({ children, ...rest }) => (
+const Button = ({ children, ...rest }) => (
     <Button {...rest} size="s" view="default" width="max">
         {children}
     </Button>
 );
+
+...
+
+return (<Button className={someClass}>Small Button with width max</Button>)
+
 ```
