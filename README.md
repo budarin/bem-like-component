@@ -39,3 +39,26 @@ const Button = ({ children, ...rest }) => (
 return (<Button className={someClass}>Small Button with width max</Button>)
 
 ```
+
+Пропсы могут быть динамическими - диапазон изменений описываем в типе а реализуем переключение модификаторов в реализации компонента под капотом
+
+```jsx
+const Button = ({ children, size, ...rest }) => (
+
+    // мемоизируем этот блок
+    switch(size) {
+        case 'm':
+            sizeMod = withSizeM;
+            break;
+        case 'l':
+            sizeMod = withSizeL;
+            break;
+    }
+    const Component = compose(sizeMod, withViewDefault)(ButtonDesktop);
+    // мемоизируем этот блок
+
+    <Button {...rest} size="s" view="default" width="max">
+        {children}
+    </Button>
+);
+```
