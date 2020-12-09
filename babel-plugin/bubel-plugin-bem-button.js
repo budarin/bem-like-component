@@ -2,8 +2,8 @@ const core = require('@babel/core');
 const t = require('@babel/types');
 const template = require('@babel/template');
 
-const props = {};
-const buttonImports = [];
+let props = {};
+let buttonImports = [];
 
 const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`;
 const getButtonImport = template.statement`import { IMPORTS } from '@yandex/ui/Button/desktop';`;
@@ -16,6 +16,10 @@ const argumentShouldBeAnObject = (path) => {
 
 module.exports = () => ({
     name: 'bubel-plugin-bem-button',
+    pre() {
+        props = {};
+        buttonImports = [];
+    },
     visitor: {
         ImportDeclaration: {
             enter(path) {
