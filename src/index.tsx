@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
         <>
             <Button1 view="default" size="m">
-                Button1
+                Hand made Button
             </Button1>
 
             <Button2 view="default" size="m">
-                Button2
+                Created with factory Button
             </Button2>
         </>,
         appElement,
