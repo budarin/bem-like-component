@@ -28,7 +28,7 @@ export const createButton = ({ size, view }: ICreateButtonProps) => {
         }
     }
 
-    if (view && view === 'default') {
+    if (view) {
         mods.push(withViewDefault);
     }
 
