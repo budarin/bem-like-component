@@ -20,7 +20,7 @@ const Button: DynamicFC<{
 return (<Button className={someClass}>Small Button with width max</Button>)
 ```
 
-а плагин трансформирует это описание в :
+плагин трансформирует это описание в :
 
 ```jsx
 import { compose } from '@bem-react/core';
