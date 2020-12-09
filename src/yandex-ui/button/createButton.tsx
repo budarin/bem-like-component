@@ -24,6 +24,13 @@ export const createButton = (props: ICreateButtonProps) => {
 
     const { size, view, width } = props;
 
+    /**
+     * Сам код тут не нужен - это заглушка для TS
+     * в рантайме она будет заменена только на необходимый код при помощи babel плагина
+     * лучше было бы если можно возвращать Button as <результирующий тип в зависимости от входных параметров>
+     * возможно как-то можно использовать последнюю фичу TS - MappedTypes
+     */
+
     if (size) {
         switch (size) {
             case 'm':
