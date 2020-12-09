@@ -17,7 +17,13 @@ interface ICreateButtonProps {
 
 let mods = [];
 
-export const createButton = ({ size, view, width }: ICreateButtonProps) => {
+export const createButton = (props: ICreateButtonProps) => {
+    // if (props) {
+    //     throw new Error('Add Button Babel plugin to your babel config');
+    // }
+
+    const { size, view, width } = props;
+
     if (size) {
         switch (size) {
             case 'm':
