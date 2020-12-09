@@ -20,14 +20,7 @@ return (<Button className={someClass}>Small Button with width max</Button>)
 
 ```jsx
 import { compose } from '@bem-react/core';
-import {
-    Button as ButtonDesktop,
-    withSizeM,
-    withSizeL,
-    withViewDefault,
-    withWidthAuto,
-    withWidthMax,
-} from '@yandex/ui/Button/desktop';
+import { Button, withSizeM, withSizeL, withViewDefault, withWidthAuto, withWidthMax } from '@yandex/ui/Button/desktop';
 
 const Component = compose(withSizeM, withViewDefault)(ButtonDesktop);
 
