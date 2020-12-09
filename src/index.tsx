@@ -13,7 +13,7 @@ const appElement = document.getElementById('app');
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
         <>
-            <Button1 view="default" size="m">
+            <Button1 view="action" size="m">
                 Hand made Button
             </Button1>
 

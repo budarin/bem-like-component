@@ -69,7 +69,18 @@ module.exports = () => ({
                     }
 
                     if (view) {
-                        buttonImports.push('withViewDefault');
+                        switch (view) {
+                            case 'default':
+                                buttonImports.push('withViewDefault');
+                                break;
+
+                            case 'action':
+                                buttonImports.push('withViewAction');
+                                break;
+
+                            default:
+                                break;
+                        }
                     }
 
                     if (width) {
