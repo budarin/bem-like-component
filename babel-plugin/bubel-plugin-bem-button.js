@@ -32,7 +32,7 @@ const argumentShouldBeAnObject = (path) => {
 module.exports = declare((api, options) => {
     return {
         name: 'bubel-plugin-bem-button',
-        inherits: require('babel-plugin-syntax-jsx'),
+        inherits: require('@babel/plugin-syntax-jsx'),
         pre() {
             props = {};
             buttonImports = [];
