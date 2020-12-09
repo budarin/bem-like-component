@@ -5,6 +5,7 @@ import {
     withSizeL,
     withSizeS,
     withViewDefault,
+    withViewAction,
     withWidthAuto,
     withWidthMax,
 } from '@yandex/ui/Button/desktop';
@@ -22,7 +23,7 @@ import {
 
 interface ICreateButtonProps {
     size?: 'm' | 's' | 'l';
-    view?: 'default';
+    view?: 'default' | 'action';
     width?: 'auto' | 'max';
 }
 
@@ -55,7 +56,18 @@ export const createButton = (props: ICreateButtonProps) => {
     }
 
     if (view) {
-        mods.push(withViewDefault);
+        switch (view) {
+            case 'default':
+                mods.push(withViewDefault);
+                break;
+
+            case 'action':
+                mods.push(withViewAction);
+                break;
+
+            default:
+                break;
+        }
     }
 
     if (width) {
