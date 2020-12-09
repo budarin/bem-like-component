@@ -3,8 +3,8 @@ const t = require('@babel/types');
 const template = require('@babel/template');
 const { declare } = require('@babel/helper-plugin-utils');
 
-const props = {};
-const buttonImports = [];
+let props = {};
+let buttonImports = [];
 
 const validPropKeys = ['size', 'width', 'view'];
 const validPropKeyValues = {
@@ -33,6 +33,10 @@ module.exports = declare((api, options) => {
     return {
         name: 'bubel-plugin-bem-button',
         inherits: require('babel-plugin-syntax-jsx'),
+        pre() {
+            props = {};
+            buttonImports = [];
+        },
         visitor: {
             ImportDeclaration: {
                 enter(path) {
