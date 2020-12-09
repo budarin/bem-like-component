@@ -1,7 +1,3 @@
-import { ReactNode } from 'react';
+import { createButton } from '../yandex-ui/button/createButton';
 
-export const Button2 = ({ children }: { children?: ReactNode }) => {
-    return <button>{children}</button>;
-};
-
-export default Button2;
+export const Button2 = createButton({ size: 'm', view: 'default' });

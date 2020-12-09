@@ -7,11 +7,8 @@ configureRootTheme({ theme });
 
 import { Button1 } from './components/button1';
 import { Button2 } from './components/button2';
-import { createButton } from './yandex-ui/button/createButton';
 
 const appElement = document.getElementById('app');
-
-const Button = createButton({ size: 'm', view: 'default' });
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
@@ -20,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 Button1
             </Button1>
 
-            <Button2>Button2</Button2>
-
-            <Button size="m">Button</Button>
+            <Button2 view="default" size="m">
+                Button2
+            </Button2>
         </>,
         appElement,
     );
