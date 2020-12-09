@@ -37,13 +37,14 @@ module.exports = () => ({
                     // получаем параметры функции
                     const args = path.node.arguments[0].properties;
 
-                    // получаем объект props
+                    // создаем объект props
                     args.forEach((node) => {
                         props[node.key.name] = node.value.value;
                     });
 
                     const { size, view, width } = props;
 
+                    // получаем список необходимых модификаторов для импорта
                     if (size) {
                         switch (size) {
                             case 'm':
@@ -82,18 +83,15 @@ module.exports = () => ({
                         }
                     }
 
-                    // вставить button импорт
+                    // вставиляем импорты
                     const uttonImport = getButtonImport({
                         IMPORTS: ['Button'].concat(buttonImports).join(','),
                     });
-
                     const firstImport = path.find((path) => path.isProgram()).get('body.0');
 
                     firstImport.insertBefore(uttonImport);
 
-                    // формируем новое выражение
-                    // заменяем текущий path этим выражением
-                    console.log(`compose(${buttonImports.join(', ')})(Button)`);
+                    // формируем новое выражение вместо createButton
                     path.replaceWithSourceString(`compose(${buttonImports.join(',')})(Button)`);
                 }
             },
