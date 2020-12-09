@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 Hand made Button
             </Button1>
 
-            <Button2 view="default" size="m">
+            <Button2 view="default" size="m" width="max">
                 Created with factory Button
             </Button2>
         </>,
