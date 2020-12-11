@@ -46,6 +46,7 @@ module.exports = declare((api, options) => {
                         path.node.specifiers[0].imported.name === 'createButton'
                     ) {
                         path.replaceWith(bemCoreImport());
+                        path.skip();
                     }
                 },
             },
@@ -140,6 +141,8 @@ module.exports = declare((api, options) => {
 
                         // формируем новое выражение вместо createButton
                         path.replaceWithSourceString(result);
+
+                        path.skip();
                     }
                 },
             },
