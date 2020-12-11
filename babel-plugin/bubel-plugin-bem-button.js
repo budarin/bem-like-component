@@ -29,6 +29,8 @@ const argumentShouldBeAnObject = (path) => {
     }
 };
 
+const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
+
 module.exports = declare((api, options) => {
     return {
         name: 'bubel-plugin-bem-button',
@@ -133,7 +135,7 @@ module.exports = declare((api, options) => {
                             PARAMS: getPropsToParams(),
                         });
 
-                        const currentStatement = path.findParent((parent) => parent.isStatement());
+                        const currentStatement = getCurrentStatementPath(path);
 
                         currentStatement.insertBefore(component);
 
