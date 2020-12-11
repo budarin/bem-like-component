@@ -133,10 +133,10 @@ module.exports = declare((api, options) => {
                             PARAMS: getPropsToParams(),
                         });
 
-                        const currentExpt = path.find((path) => path.isExportNamedDeclaration());
+                        const currentStatement = path.findParent((parent) => parent.isStatement());
 
-                        if (currentExpt) {
-                            currentExpt.insertBefore(component);
+                        if (currentStatement) {
+                            currentStatement.insertBefore(component);
                         }
 
                         // формируем новое выражение вместо createButton
