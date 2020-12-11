@@ -16,6 +16,10 @@ const argumentShouldBeAnObject = (path) => {
 
 module.exports = () => ({
     name: 'bubel-plugin-bem-button',
+    manipulateOptions: (opts, parserOpts) => {
+        parserOpts.plugins.push('jsx', 'typescript');
+        console.log('manipulateOptions'.toUpperCase(), parserOpts);
+    },
     pre() {
         props = {};
         buttonImports = [];
@@ -28,7 +32,9 @@ module.exports = () => ({
                     path.node.specifiers[0].imported &&
                     path.node.specifiers[0].imported.name === 'createButton'
                 ) {
+                    // console.log(path.node.source.value)
                     path.replaceWith(bemCoreImport());
+                    path.skip();
                 }
             },
         },
@@ -108,6 +114,7 @@ module.exports = () => ({
 
                     // формируем новое выражение вместо createButton
                     path.replaceWithSourceString(`compose(${buttonImports.join(',')})(Button)`);
+                    // path.insertAfter(template.statement`const b = () => <Button></Button>`());
                 }
             },
         },
