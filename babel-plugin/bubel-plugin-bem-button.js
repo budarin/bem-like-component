@@ -14,6 +14,8 @@ const argumentShouldBeAnObject = (path) => {
     }
 };
 
+const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
+
 module.exports = () => ({
     name: 'bubel-plugin-bem-button',
     // manipulateOptions: (opts, parserOpts) => {
@@ -114,7 +116,9 @@ module.exports = () => ({
 
                     // формируем новое выражение вместо createButton
                     path.replaceWithSourceString(`compose(${buttonImports.join(',')})(Button)`);
-                    // path.insertAfter(template.statement`const b = () => <Button></Button>`());
+                    // path.insertAfter(template.statement`const b = () => <Button></Button>`())
+
+                    // getCurrentStatementPath(path).insertBefore(template.statement`console.log("a");`())
 
                     path.skip();
                 }
