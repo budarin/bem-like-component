@@ -135,9 +135,7 @@ module.exports = declare((api, options) => {
 
                         const currentStatement = path.findParent((parent) => parent.isStatement());
 
-                        if (currentStatement) {
-                            currentStatement.insertBefore(component);
-                        }
+                        currentStatement.insertBefore(component);
 
                         // формируем новое выражение вместо createButton
                         path.replaceWithSourceString(result);
