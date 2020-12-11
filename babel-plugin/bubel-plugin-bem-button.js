@@ -108,7 +108,7 @@ module.exports = () => ({
                     const uttonImport = getButtonImport({
                         IMPORTS: ['Button'].concat(buttonImports).join(','),
                     });
-                    const firstImport = path.find((path) => path.isProgram()).get('body.0');
+                    const firstImport = path.find((p) => p.isProgram()).get('body.0');
 
                     firstImport.insertBefore(uttonImport);
 
