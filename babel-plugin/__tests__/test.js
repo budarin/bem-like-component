@@ -7,8 +7,8 @@ pluginTester({
     pluginName: 'bubel-plugin-bem-button',
     tests: [
         {
-            fixture: path.join(__dirname, '__fixtures__/input.js'),
-            outputFixture: path.join(__dirname, '__fixtures__/output.js'),
+            fixture: path.join(__dirname, 'fixtures/input.js'),
+            outputFixture: path.join(__dirname, 'fixtures/output.js'),
         },
     ],
 });
