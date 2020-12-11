@@ -5,7 +5,7 @@ import BemButtonPlugin from '../bubel-plugin-bem-button';
 const getFixtures = (fixtureFolder) => ({
     title: fixtureFolder.replace('-', ' '),
     fixture: path.join(__dirname, `fixtures/${fixtureFolder}/input.js`),
-    outputFixture: path.join(__dirname, `/fixtures${fixtureFolder}/output.js`),
+    outputFixture: path.join(__dirname, `/fixtures/${fixtureFolder}/output.js`),
 });
 
 pluginTester({
