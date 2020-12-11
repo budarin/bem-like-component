@@ -28,11 +28,11 @@ module.exports = () => ({
         ImportDeclaration: {
             enter(path) {
                 if (
+                    // replace with in prod `path.node.source.value`
                     path &&
                     path.node.specifiers[0].imported &&
                     path.node.specifiers[0].imported.name === 'createButton'
                 ) {
-                    // console.log(path.node.source.value)
                     path.replaceWith(bemCoreImport());
                     path.skip();
                 }
