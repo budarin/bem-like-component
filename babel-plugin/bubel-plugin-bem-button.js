@@ -41,13 +41,7 @@ module.exports = declare((api, options) => {
         visitor: {
             ImportDeclaration: {
                 enter(path) {
-                    if (
-                        path &&
-                        path.node.specifiers &&
-                        path.node.specifiers.length > 0 &&
-                        path.node.specifiers[0].imported &&
-                        path.node.specifiers[0].imported.name === 'createButton'
-                    ) {
+                    if (path.node.specifiers.length > 0 && path.node.specifiers[0].imported.name === 'createButton') {
                         path.replaceWith(bemCoreImport());
                         path.skip();
                     }

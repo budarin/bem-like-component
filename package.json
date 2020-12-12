@@ -35,6 +35,14 @@
         "webpack-cli": "^4.2.0",
         "webpack-dev-server": "^3.11.0"
     },
+    "browserslist": {
+        "production": [
+            "last 2 chrome version"
+        ],
+        "development": [
+            "last 1 chrome version"
+        ]
+    },
     "scripts": {
         "start": "webpack serve --config ./config/webpack/webpack.config.js",
         "test": "jest --passWithNoTests"
