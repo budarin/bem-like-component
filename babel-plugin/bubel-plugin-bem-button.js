@@ -125,6 +125,8 @@ module.exports = declare((api, options) => {
                             }
                         }
 
+                        console.log(buttonImports);
+
                         // вставиляем импорты
                         const uttonImport = getButtonImport({
                             IMPORTS: ['Button'].concat(buttonImports).join(', '),
