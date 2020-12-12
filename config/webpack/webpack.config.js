@@ -28,7 +28,7 @@ module.exports = {
         writeToDisk: true,
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', 'jsx', '.json'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
         modules: ['node_modules', 'src'],
         alias: {},
     },

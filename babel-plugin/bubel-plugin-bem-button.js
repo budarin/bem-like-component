@@ -10,7 +10,7 @@ const validPropKeys = ['size', 'width', 'view'];
 const validPropKeyValues = {
     size: ['s', 'm', 'l'],
     width: ['auto', 'max'],
-    view: ['default'],
+    view: ['default', 'action'],
 };
 
 const getPropsToParams = () =>
@@ -128,7 +128,7 @@ module.exports = declare((api, options) => {
                         const buttonImport = getButtonImport({
                             __IMPORTS__: ['Button'].concat(buttonImports).join(', '),
                         });
-                        const firstImport = path.find((path) => path.isProgram()).get('body.0');
+                        const firstImport = path.find((p) => p.isProgram()).get('body.0');
 
                         firstImport.insertBefore(buttonImport);
 
@@ -137,7 +137,7 @@ module.exports = declare((api, options) => {
                         )} )(Button);`;
                         const component = getComponent();
 
-                        const attributes = [t.jsxSpreadAttribute(t.identifier('restProps'))];
+                        const attributes = [t.jsxSpreadAttribute(t.identifier('rest'))];
                         Object.keys(props).forEach((key) => {
                             attributes.push(t.jsxAttribute(t.jsxIdentifier(key), t.stringLiteral(props[key])));
                         });
@@ -146,7 +146,7 @@ module.exports = declare((api, options) => {
                             [
                                 t.objectPattern([
                                     t.objectProperty(t.identifier('children'), t.identifier('children')),
-                                    t.restElement(t.identifier('restProps')),
+                                    t.restElement(t.identifier('rest')),
                                 ]),
                             ],
                             t.jsxElement(

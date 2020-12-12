@@ -34,9 +34,7 @@ export const createButton = (props: ICreateButtonProps) => {
     //     throw new Error('Add Button Babel plugin to your babel config');
     // }
 
-    const { children, size, view, width, ...rest } = props;
-
-    const getPropsToParams = () => Object.keys(props).map((key) => `${key}="${props[key]}"`);
+    const { size, view, width } = props;
 
     if (size) {
         switch (size) {
@@ -89,7 +87,11 @@ export const createButton = (props: ICreateButtonProps) => {
 
     const Component = compose(...mods)(Button);
 
-    // console.log('props', ...getPropsToParams());
+    const result = ({ children, ...rest }) => (
+        <Component {...rest} {...props}>
+            {children}
+        </Component>
+    );
 
-    return <Component {...rest}>{children}</Component>;
+    return result;
 };
