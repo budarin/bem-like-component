@@ -6,7 +6,8 @@ import { theme } from '@yandex/ui/Theme/presets/default';
 configureRootTheme({ theme });
 
 import { Button1 } from './components/button1';
-import { Button2 } from './components/button2';
+// import { Button2 } from './components/button2';
+import { Button2 } from './components/button';
 
 const appElement = document.getElementById('app');
 
