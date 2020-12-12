@@ -2,6 +2,7 @@ const core = require('@babel/core');
 const t = require('@babel/types');
 const template = require('@babel/template');
 const { declare } = require('@babel/helper-plugin-utils');
+const jsx = require('@babel/plugin-syntax-jsx').default;
 
 let props = {};
 let buttonImports = [];
@@ -33,7 +34,7 @@ const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isS
 module.exports = declare((api, options) => {
     return {
         name: 'bubel-plugin-bem-button',
-        inherits: require('@babel/plugin-syntax-jsx').default,
+        inherits: jsx,
         pre() {
             props = {};
             buttonImports = [];
