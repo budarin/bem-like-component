@@ -10,7 +10,7 @@ const validPropKeys = ['size', 'width', 'view'];
 const validPropKeyValues = {
     size: ['s', 'm', 'l'],
     width: ['auto', 'max'],
-    view: ['default'],
+    view: ['default', 'action'],
 };
 
 const getPropsToParams = () =>
