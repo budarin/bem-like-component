@@ -15,12 +15,12 @@ const validPropKeyValues = {
 
 const getPropsToParams = () =>
     Object.keys(props)
-        .map((key) => `${key}=${props[key]}`)
+        .map((key) => `${key}="${props[key]}"`)
         .join(' ');
 
 const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`;
 const getButtonImport = template.statement`import { IMPORTS } from '@yandex/ui/Button/desktop';`;
-const getComponent = template.statement`const Component = compose(MODS)(Button);`;
+const getComponent = template.statement`const Component = compose(NODS)(Button);`;
 const getResult = template.expression({
     plugins: ['jsx'],
 })`({children, ...restProps}) => <Component {...restProps} PARAMS>{children}</Component>`;
@@ -126,8 +126,6 @@ module.exports = declare((api, options) => {
                             }
                         }
 
-                        console.log(buttonImports);
-
                         // вставиляем импорты
                         const uttonImport = getButtonImport({
                             IMPORTS: ['Button'].concat(buttonImports).join(', '),
@@ -139,6 +137,9 @@ module.exports = declare((api, options) => {
                         const component = getComponent({
                             NODS: buttonImports.join(', '),
                         });
+
+                        console.log('getPropsToParams()', getPropsToParams());
+
                         const result = getResult({
                             PARAMS: getPropsToParams(),
                         });
