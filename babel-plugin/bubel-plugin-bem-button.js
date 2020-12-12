@@ -21,7 +21,9 @@ const getPropsToParams = () =>
 const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`;
 const getButtonImport = template.statement`import { IMPORTS } from '@yandex/ui/Button/desktop';`;
 const getComponent = template.statement`const Component = compose(MODS)(Button);`;
-const getResult = template.expression`({children, ...restProps}) => <Component {...restProps} PARAMS>{children}</Component>;`;
+const getResult = template.expression({
+    plugins: ['jsx'],
+})`({children, ...restProps}) => <Component {...restProps} PARAMS>{children}</Component>`;
 
 const argumentShouldBeAnObject = (path) => {
     if (path.node.arguments[0].type !== 'ObjectExpression') {
@@ -34,7 +36,7 @@ const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isS
 module.exports = declare((api, options) => {
     return {
         name: 'bubel-plugin-bem-button',
-        inherits: require('@babel/plugin-syntax-jsx'),
+        inherits: require('@babel/plugin-syntax-jsx').default,
         pre() {
             props = {};
             buttonImports = [];
@@ -63,7 +65,10 @@ module.exports = declare((api, options) => {
 
                         // создаем объект props
                         args.forEach((node) => {
-                            if (validPropKeys.includes(node.key.name) && validPropKeyValues[node.key.name].includes()) {
+                            if (
+                                validPropKeys.includes(node.key.name) &&
+                                validPropKeyValues[node.key.name].includes(node.value.value)
+                            ) {
                                 props[node.key.name] = node.value.value;
                             }
                         });
@@ -124,7 +129,7 @@ module.exports = declare((api, options) => {
                         const uttonImport = getButtonImport({
                             IMPORTS: ['Button'].concat(buttonImports).join(', '),
                         });
-                        const firstImport = path.find((path) => path.isProgram()).get('body.0');
+                        const firstImport = path.find((p) => p.isProgram()).get('body.0');
 
                         firstImport.insertBefore(uttonImport);
 
