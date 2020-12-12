@@ -85,5 +85,12 @@ export const createButton = (props: ICreateButtonProps) => {
         }
     }
 
-    return compose(...mods)(Button);
+    const Btn = compose(...mods)(Button);
+    const verifiedProps = { size, view, width };
+
+    return ({ children, ...rest }) => (
+        <Btn {...rest} {...verifiedProps}>
+            {children}
+        </Btn>
+    );
 };
