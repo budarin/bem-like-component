@@ -44,6 +44,7 @@ module.exports = declare((api, options) => {
         visitor: {
             ImportDeclaration: {
                 enter(path) {
+                    // console.log(path.getSource())
                     if (
                         path.node.specifiers.length > 0 &&
                         path.node.specifiers[0].imported &&
