@@ -151,7 +151,7 @@ module.exports = declare((api, options) => {
                                 ]),
                             ],
                             t.jsxElement(
-                                t.jsxOpeningElement(t.jsxIdentifier('Component'), [...attributes]),
+                                t.jsxOpeningElement(t.jsxIdentifier('Component'), attributes),
                                 t.jsxClosingElement(t.jsxIdentifier('Component')),
                                 [t.jsxExpressionContainer(t.identifier('children'))],
                             ),
