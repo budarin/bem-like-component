@@ -10,18 +10,12 @@ const validPropKeyValues = {
     view: ['default', 'action'],
 };
 
-const getPropsToParams = () =>
-    Object.keys(props)
-        .map((key) => `${key}=${props[key]}`)
-        .join(' ');
-
+const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
 const argumentShouldBeAnObject = (path) => {
     if (path.node.arguments[0].type !== 'ObjectExpression') {
         throw path.buildCodeFrameError('Params should be an object');
     }
 };
-
-const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
 
 module.exports = declare(({ assertVersion, options, template, types: t }) => {
     assertVersion(7);
