@@ -1,6 +1,3 @@
-const core = require('@babel/core');
-const t = require('@babel/types');
-const template = require('@babel/template');
 const { declare } = require('@babel/helper-plugin-utils');
 
 let props = {};
@@ -18,10 +15,6 @@ const getPropsToParams = () =>
         .map((key) => `${key}=${props[key]}`)
         .join(' ');
 
-const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`;
-
-const getButtonImport = template.statement`import { __IMPORTS__ } from '@yandex/ui/Button/desktop';`;
-
 const argumentShouldBeAnObject = (path) => {
     if (path.node.arguments[0].type !== 'ObjectExpression') {
         throw path.buildCodeFrameError('Params should be an object');
@@ -30,7 +23,12 @@ const argumentShouldBeAnObject = (path) => {
 
 const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
 
-module.exports = declare((api, options) => {
+module.exports = declare(({ assertVersion, options, template, types: t }) => {
+    assertVersion(7);
+
+    const getButtonImport = template.statement`import { __IMPORTS__ } from '@yandex/ui/Button/desktop';`;
+    const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`;
+
     return {
         name: 'bubel-plugin-bem-button',
         manipulateOptions: (opts, parserOpts) => {
