@@ -145,11 +145,10 @@ module.exports = declare((api, options) => {
                         });
 
                         const currentStatement = getCurrentStatementPath(path);
-
                         currentStatement.insertBefore(component);
 
                         // формируем новое выражение вместо createButton
-                        path.replaceWithSourceString(result);
+                        path.replaceWith(result);
 
                         path.skip();
                     }
