@@ -1,27 +1,27 @@
 const { declare } = require('@babel/helper-plugin-utils');
 
-let props = {};
-let buttonImports = [];
-
-const validPropKeys = ['size', 'width', 'view'];
-const validPropKeyValues = {
-    size: ['s', 'm', 'l'],
-    width: ['auto', 'max'],
-    view: ['default', 'action'],
-};
-
-const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
-const argumentShouldBeAnObject = (path) => {
-    if (path.node.arguments[0].type !== 'ObjectExpression') {
-        throw path.buildCodeFrameError('Params should be an object');
-    }
-};
-
 module.exports = declare(({ assertVersion, options, template, types: t }) => {
     assertVersion(7);
 
-    const getButtonImport = template.statement`import { __IMPORTS__ } from '@yandex/ui/Button/desktop';`;
+    let props = {};
+    let buttonImports = [];
+
+    const validPropKeys = ['size', 'width', 'view'];
+    const validPropKeyValues = {
+        size: ['s', 'm', 'l'],
+        width: ['auto', 'max'],
+        view: ['default', 'action'],
+    };
+
     const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`;
+    const getButtonImport = template.statement`import { __IMPORTS__ } from '@yandex/ui/Button/desktop';`;
+
+    const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
+    const argumentShouldBeAnObject = (path) => {
+        if (path.node.arguments[0].type !== 'ObjectExpression') {
+            throw path.buildCodeFrameError('Params should be an object');
+        }
+    };
 
     return {
         name: 'bubel-plugin-bem-button',
