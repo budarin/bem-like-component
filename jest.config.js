@@ -3,7 +3,7 @@
 const path = require('path');
 
 module.exports = {
-    displayName: 'CLIENT',
+    displayName: 'PLUGIN',
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
@@ -14,7 +14,7 @@ module.exports = {
     // browser: false,
 
     // The directory where Jest should store its cached dependency information
-    cacheDirectory: path.resolve('node_modules/.cache/jest/client'),
+    cacheDirectory: path.resolve('node_modules/.cache/jest/plugin'),
 
     // Automatically clear mock calls and instances between every test
     clearMocks: true,
