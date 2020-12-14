@@ -2,7 +2,7 @@ import { Button, withSizeM, withViewAction, withWidthMax } from '@yandex/ui/Butt
 import { compose } from '@bem-react/core';
 const Component = compose(withSizeM, withViewAction, withWidthMax)(Button);
 export const Button2 = ({ children, ...restProps }) => (
-    <Component {...restProps} size="m" view="default" width="max">
+    <Component {...restProps} size="m" view="action" width="max">
         {children}
     </Component>
 );
