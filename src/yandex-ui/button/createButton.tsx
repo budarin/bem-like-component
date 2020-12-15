@@ -85,5 +85,11 @@ export const createButton = (props: ICreateButtonProps) => {
         }
     }
 
-    return compose(...mods)(Button);
+    const Component = compose(...mods)(Button);
+
+    return ({ children, ...rest }: { children: React.ReactNode }) => (
+        <Component {...rest} size={size} view={view} width={width}>
+            {children}
+        </Component>
+    );
 };
