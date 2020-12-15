@@ -138,8 +138,6 @@ module.exports = declare((api, options) => {
                             NODS: buttonImports.join(', '),
                         });
 
-                        console.log('getPropsToParams()', getPropsToParams());
-
                         const result = getResult({
                             JSX: `<Component {...restProps} ${getPropsToParams()}>{children}</Component>`,
                         });
