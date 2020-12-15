@@ -17,7 +17,7 @@
         "@bem-react/di": "^2.2.5",
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
-        "@yandex/ui": "^2.59.17",
+        "@yandex/ui": "^2.60.1",
         "babel-jest": "^26.6.3",
         "babel-loader": "^8.2.2",
         "babel-plugin-tester": "^10.0.0",
@@ -29,7 +29,7 @@
         "react-dom": "^17.0.1",
         "style-loader": "^2.0.0",
         "typescript": "^4.1.3",
-        "webpack": "^5.10.1",
+        "webpack": "^5.10.2",
         "webpack-cli": "^4.2.0",
         "webpack-dev-server": "^3.11.0"
     },
@@ -43,6 +43,7 @@
     },
     "scripts": {
         "start": "webpack serve --config ./config/webpack/webpack.config.js",
-        "test": "jest --passWithNoTests"
+        "test": "jest --passWithNoTests",
+        "upgrade-deps": "yarn upgrade-interactive --latest && yarn upgrad"
     }
 }
