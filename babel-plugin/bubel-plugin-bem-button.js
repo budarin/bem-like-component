@@ -82,28 +82,19 @@ module.exports = declare(({ assertVersion, options, template, types: t }) => {
                         const { size, view, width } = props;
 
                         // получаем список необходимых модификаторов для импорта
-                        if (size) {
-                            const sizeMod = sizes[size];
-
-                            if (sizeMod) {
-                                buttonImports.push(sizeMod);
-                            }
+                        const sizeMod = sizes[size];
+                        if (sizeMod) {
+                            buttonImports.push(sizeMod);
                         }
 
-                        if (view) {
-                            const viewMod = views[view];
-
-                            if (viewMod) {
-                                buttonImports.push(viewMod);
-                            }
+                        const viewMod = views[view];
+                        if (viewMod) {
+                            buttonImports.push(viewMod);
                         }
 
-                        if (width) {
-                            const widthMod = widths[width];
-
-                            if (widthMod) {
-                                buttonImports.push(widthMod);
-                            }
+                        const widthMod = widths[width];
+                        if (widthMod) {
+                            buttonImports.push(widthMod);
                         }
 
                         // вставиляем импорты
