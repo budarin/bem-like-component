@@ -27,62 +27,38 @@ interface ICreateButtonProps {
     width?: 'auto' | 'max';
 }
 
+const sizes = {
+    m: 'withSizeM',
+    s: 'withSizeS',
+    l: 'withSizeL',
+};
+const views = {
+    default: 'withViewDefault',
+    action: 'withViewAction',
+};
+const widths = {
+    auto: 'withWidthAuto',
+    max: 'withWidthMax',
+};
+
 let mods = [];
 
 export const createButton = (props: ICreateButtonProps) => {
-    // if (props) {
-    //     throw new Error('Add Button Babel plugin to your babel config');
-    // }
-
     const { size, view, width } = props;
 
-    if (size) {
-        switch (size) {
-            case 'm':
-                mods.push(withSizeM);
-                break;
-
-            case 's':
-                mods.push(withSizeS);
-                break;
-
-            case 'l':
-                mods.push(withSizeL);
-                break;
-
-            default:
-                break;
-        }
+    const sizeMod = sizes[size];
+    if (sizeMod) {
+        mods.push(sizeMod);
     }
 
-    if (view) {
-        switch (view) {
-            case 'default':
-                mods.push(withViewDefault);
-                break;
-
-            case 'action':
-                mods.push(withViewAction);
-                break;
-
-            default:
-                break;
-        }
+    const viewMod = views[view];
+    if (viewMod) {
+        mods.push(viewMod);
     }
 
-    if (width) {
-        switch (width) {
-            case 'auto':
-                mods.push(withWidthAuto);
-                break;
-
-            case 'max':
-                mods.push(withWidthMax);
-                break;
-
-            default:
-                break;
-        }
+    const widthMod = widths[width];
+    if (widthMod) {
+        mods.push(widthMod);
     }
 
     const Component = compose(...mods)(Button);
