@@ -12,6 +12,19 @@ module.exports = declare(({ assertVersion, options, template, types: t }) => {
         width: ['auto', 'max'],
         view: ['default', 'action'],
     };
+    const sizes = {
+        m: 'withSizeM',
+        s: 'withSizeS',
+        l: 'withSizeL',
+    };
+    const views = {
+        default: 'withViewDefault',
+        action: 'withViewAction',
+    };
+    const widths = {
+        auto: 'withWidthAuto',
+        max: 'withWidthMax',
+    };
 
     const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`;
     const getButtonImport = template.statement`import { __IMPORTS__ } from '@yandex/ui/Button/desktop';`;
@@ -70,51 +83,26 @@ module.exports = declare(({ assertVersion, options, template, types: t }) => {
 
                         // получаем список необходимых модификаторов для импорта
                         if (size) {
-                            switch (size) {
-                                case 'm':
-                                    buttonImports.push('withSizeM');
-                                    break;
+                            const sizeMod = sizes[size];
 
-                                case 's':
-                                    buttonImports.push('withSizeS');
-                                    break;
-
-                                case 'l':
-                                    buttonImports.push('withSizeL');
-                                    break;
-
-                                default:
-                                    break;
+                            if (sizeMod) {
+                                buttonImport.push(sizeMod);
                             }
                         }
 
                         if (view) {
-                            switch (view) {
-                                case 'default':
-                                    buttonImports.push('withViewDefault');
-                                    break;
+                            const viewMod = sizes[size];
 
-                                case 'action':
-                                    buttonImports.push('withViewAction');
-                                    break;
-
-                                default:
-                                    break;
+                            if (viewMod) {
+                                buttonImport.push(viewMod);
                             }
                         }
 
                         if (width) {
-                            switch (width) {
-                                case 'auto':
-                                    buttonImports.push('withWidthAuto');
-                                    break;
+                            const widthMod = sizes[size];
 
-                                case 'max':
-                                    buttonImports.push('withWidthMax');
-                                    break;
-
-                                default:
-                                    break;
+                            if (widthMod) {
+                                buttonImport.push(widthMod);
                             }
                         }
 
