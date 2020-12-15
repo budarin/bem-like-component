@@ -35,6 +35,7 @@
     },
     "scripts": {
         "start": "webpack serve --config ./config/webpack/webpack.config.js",
-        "test": "jest --passWithNoTests"
+        "test": "jest --passWithNoTests",
+        "upgrade-deps": "yarn upgrade-interactive --latest && yarn upgrad"
     }
 }
