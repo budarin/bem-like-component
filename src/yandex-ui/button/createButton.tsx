@@ -46,24 +46,30 @@ let mods = [];
 export const createButton = (props: ICreateButtonProps) => {
     const { size, view, width } = props;
 
-    const sizeMod = sizes[size];
-    if (sizeMod) {
-        mods.push(sizeMod);
+    if (size) {
+        const sizeMod = sizes[size];
+        if (sizeMod) {
+            mods.push(sizeMod);
+        }
     }
 
-    const viewMod = views[view];
-    if (viewMod) {
-        mods.push(viewMod);
+    if (view) {
+        const viewMod = views[view];
+        if (viewMod) {
+            mods.push(viewMod);
+        }
     }
 
-    const widthMod = widths[width];
-    if (widthMod) {
-        mods.push(widthMod);
+    if (width) {
+        const widthMod = widths[width];
+        if (widthMod) {
+            mods.push(widthMod);
+        }
     }
 
     const Component = compose(...mods)(Button);
 
-    const result = ({ children, ...rest }) => (
+    const result = ({ children, ...rest }: { children: React.ReactNode }) => (
         <Component {...rest} {...props}>
             {children}
         </Component>
