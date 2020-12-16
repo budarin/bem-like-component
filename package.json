@@ -9,7 +9,7 @@
         "@babel/cli": "^7.12.10",
         "@babel/core": "^7.12.10",
         "@babel/helper-plugin-utils": "^7.10.4",
-        "@babel/preset-env": "^7.12.10",
+        "@babel/preset-env": "^7.12.11",
         "@babel/preset-react": "^7.12.10",
         "@babel/preset-typescript": "^7.12.7",
         "@bem-react/classname": "^1.5.8",
