@@ -15,6 +15,7 @@
         "@bem-react/classname": "^1.5.8",
         "@bem-react/core": "^3.0.2",
         "@bem-react/di": "^2.2.5",
+        "@statoscope/ui-webpack": "^3.2.0",
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
         "@yandex/ui": "^2.60.1",
@@ -44,6 +45,7 @@
     "scripts": {
         "start": "webpack serve --config ./config/webpack/webpack.config.js",
         "test": "jest --passWithNoTests",
+        "build": "sh ./config/webpack/build.sh",
         "upgrade-deps": "yarn upgrade-interactive --latest && yarn upgrad"
     }
 }

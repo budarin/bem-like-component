@@ -1,3 +1,7 @@
-import { createButton } from '../yandex-ui/button/createButton';
+import { Button } from '@yandex/ui/Button/desktop/bundle';
 
-export const Button2 = createButton({ size: 'l', view: 'action', width: 'max' });
+export const Button2 = ({ children, ...rest }: { children: React.ReactNode }) => (
+    <Button {...rest} size="m" view="action" width="max">
+        {children}
+    </Button>
+);
