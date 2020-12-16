@@ -1,6 +1,7 @@
 const { declare } = require('@babel/helper-plugin-utils');
+import * as t from '@babel/types';
 
-module.exports = declare(({ assertVersion, options, template, types: t }) => {
+module.exports = declare(({ assertVersion, options, template }) => {
     assertVersion(7);
 
     let props = {};

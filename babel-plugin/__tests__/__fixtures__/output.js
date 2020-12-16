@@ -1,7 +1,7 @@
-import { Button, withSizeM, withViewAction, withWidthMax } from '@yandex/ui/Button/desktop';
 import { compose } from '@bem-react/core';
+import { Button, withSizeM, withViewAction, withWidthMax } from '@yandex/ui/Button/desktop';
 const Component = compose(withSizeM, withViewAction, withWidthMax)(Button);
-export const Button2 = ({ children: children, ...rest }) => (
+export const Button = ({ children: children, ...rest }) => (
     <Component {...rest} size="m" view="action" width="max">
         {children}
     </Component>
