@@ -23,7 +23,7 @@ const getButtonImport = template.statement`import { IMPORTS } from '@yandex/ui/B
 const getComponent = template.statement`const Component = compose(NODS)(Button);`;
 const getResult = template.expression({
     plugins: ['jsx'],
-})`({children, ...restProps}) => JSX`;
+})`({children, ...rest}) => JSX`;
 
 const argumentShouldBeAnObject = (path) => {
     if (path.node.arguments[0].type !== 'ObjectExpression') {
@@ -139,7 +139,7 @@ module.exports = declare((api, options) => {
                         });
 
                         // const result = getResult({
-                        //     JSX: `<Component {...restProps} ${getPropsToParams()}>{children}</Component>`,
+                        //     JSX: `<Component {...rest} ${getPropsToParams()}>{children}</Component>`,
                         // });
 
                         const attributes = [t.jsxSpreadAttribute(t.identifier('rest'))];
