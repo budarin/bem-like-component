@@ -138,9 +138,30 @@ module.exports = declare((api, options) => {
                             NODS: buttonImports.join(', '),
                         });
 
-                        const result = getResult({
-                            JSX: `<Component {...restProps} ${getPropsToParams()}>{children}</Component>`,
+                        // const result = getResult({
+                        //     JSX: `<Component {...restProps} ${getPropsToParams()}>{children}</Component>`,
+                        // });
+
+                        const attributes = [t.jsxSpreadAttribute(t.identifier('rest'))];
+                        Object.keys(props).forEach((key) => {
+                            attributes.push(t.jsxAttribute(t.jsxIdentifier(key), t.stringLiteral(props[key])));
                         });
+
+                        const result = t.arrowFunctionExpression(
+                            [
+                                t.objectPattern([
+                                    t.objectProperty(t.identifier('children'), t.identifier('children')),
+                                    t.restElement(t.identifier('rest')),
+                                ]),
+                            ],
+                            t.jsxElement(
+                                t.jsxOpeningElement(t.jsxIdentifier('Component'), attributes),
+                                t.jsxClosingElement(t.jsxIdentifier('Component')),
+                                [t.jsxExpressionContainer(t.identifier('children'))],
+                            ),
+                        );
+
+                        console.log(result.body);
 
                         const currentStatement = getCurrentStatementPath(path);
                         currentStatement.insertBefore(component);
