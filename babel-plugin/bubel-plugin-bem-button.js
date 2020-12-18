@@ -62,6 +62,21 @@ module.exports = declare(({ assertVersion, options, template }) => {
                 },
             },
 
+            // обходим все ссылки которые имеют связи
+            ReferencedIdentifier: {
+                enter(path) {
+                    if (
+                        // identifier.referencesImport(moduleSource, importName) &&
+                        path.node.parent &&
+                        path.node.parent.type === 'JSXElement'
+                    ) {
+                        // получаем у кнопки параметры
+                        console.log(path);
+                    }
+                },
+            },
+
+            // TODO: убрать
             CallExpression: {
                 enter(path) {
                     if (path.node.callee && path.node.callee.name === 'createButton') {
