@@ -161,6 +161,14 @@ module.exports = declare((api, options) => {
                             ),
                         );
 
+                        // const result = getResult({
+                        //     JSX: t.jsxElement(
+                        //         t.jsxOpeningElement(t.jsxIdentifier('Component'), attributes),
+                        //         t.jsxClosingElement(t.jsxIdentifier('Component')),
+                        //         [t.jsxExpressionContainer(t.identifier('children'))],
+                        //     ),
+                        // });
+
                         console.log(result.body);
 
                         const currentStatement = getCurrentStatementPath(path);
@@ -169,7 +177,7 @@ module.exports = declare((api, options) => {
                         // формируем новое выражение вместо createButton
                         path.replaceWith(result);
 
-                        path.skip();
+                        // path.skip();
                     }
                 },
             },
