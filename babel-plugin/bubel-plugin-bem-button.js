@@ -29,6 +29,7 @@ module.exports = declare(({ assertVersion, options, template }) => {
 
     const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`();
     const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
+    const getComponent = (imports) => template.statement`const Component = compose( ${imports.join(', ')} )(Button);`();
 
     return {
         name: 'bubel-plugin-bem-button',
@@ -101,10 +102,7 @@ module.exports = declare(({ assertVersion, options, template }) => {
                             }
 
                             // генерируем компонент для нашей кнопки
-                            const getComponent = template.statement`const Component = compose( ${buttonImports.join(
-                                ', ',
-                            )} )(Button);`;
-                            const component = getComponent();
+                            const component = getComponent(buttonImports);
 
                             // получаем путь к выражению в котором используется кнопка
                             const btnStatement = getCurrentStatementPath(btn.referencePaths[0].parentPath);
