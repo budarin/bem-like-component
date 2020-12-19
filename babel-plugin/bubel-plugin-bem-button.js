@@ -147,27 +147,27 @@ module.exports = declare((api, options) => {
                             attributes.push(t.jsxAttribute(t.jsxIdentifier(key), t.stringLiteral(props[key])));
                         });
 
-                        const result = t.arrowFunctionExpression(
-                            [
-                                t.objectPattern([
-                                    t.objectProperty(t.identifier('children'), t.identifier('children')),
-                                    t.restElement(t.identifier('rest')),
-                                ]),
-                            ],
-                            t.jsxElement(
-                                t.jsxOpeningElement(t.jsxIdentifier('Component'), attributes),
-                                t.jsxClosingElement(t.jsxIdentifier('Component')),
-                                [t.jsxExpressionContainer(t.identifier('children'))],
-                            ),
-                        );
-
-                        // const result = getResult({
-                        //     JSX: t.jsxElement(
+                        // const result = t.arrowFunctionExpression(
+                        //     [
+                        //         t.objectPattern([
+                        //             t.objectProperty(t.identifier('children'), t.identifier('children')),
+                        //             t.restElement(t.identifier('rest')),
+                        //         ]),
+                        //     ],
+                        //     t.jsxElement(
                         //         t.jsxOpeningElement(t.jsxIdentifier('Component'), attributes),
                         //         t.jsxClosingElement(t.jsxIdentifier('Component')),
                         //         [t.jsxExpressionContainer(t.identifier('children'))],
                         //     ),
-                        // });
+                        // );
+
+                        const result = getResult({
+                            JSX: t.jsxElement(
+                                t.jsxOpeningElement(t.jsxIdentifier('Component'), attributes),
+                                t.jsxClosingElement(t.jsxIdentifier('Component')),
+                                [t.jsxExpressionContainer(t.identifier('children'))],
+                            ),
+                        });
 
                         console.log(result.body);
 
