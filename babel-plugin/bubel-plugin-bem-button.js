@@ -34,7 +34,7 @@ module.exports = declare(({ assertVersion, options, template }) => {
     return {
         name: 'bubel-plugin-bem-button',
         manipulateOptions: (opts, parserOpts) => {
-            parserOpts.plugins.push('jsx');
+            parserOpts.plugins.push('jsx', 'typescript');
             // console.log('manipulateOptions'.toUpperCase(), opts, parserOpts);
         },
         pre() {
