@@ -34,7 +34,7 @@ module.exports = declare(({ assertVersion, options, template }) => {
         name: 'bubel-plugin-bem-button',
         manipulateOptions: (opts, parserOpts) => {
             parserOpts.plugins.push('jsx');
-            // console.log('manipulateOptions'.toUpperCase(), parserOpts)
+            // console.log('manipulateOptions'.toUpperCase(), opts, parserOpts);
         },
         pre() {
             props = {};
@@ -43,6 +43,7 @@ module.exports = declare(({ assertVersion, options, template }) => {
         visitor: {
             ImportDeclaration: {
                 enter(path) {
+                    // ищем импорт полного бандла кнопки
                     if (path.node.source.value === '@yandex/ui/Button/desktop/bundle') {
                         // получаем локальное имя Button
                         const btnImported = path.node.specifiers.find((spec) => spec.imported.name === 'Button');
@@ -57,10 +58,10 @@ module.exports = declare(({ assertVersion, options, template }) => {
                             // получаем алиас Button
                             const btnImportedName = btnImported.local.name;
 
-                            // запоминаем путь к компонету-кнопки
+                            // запоминаем путь к binding компонету-кнопки
                             const btn = path.scope.bindings[btnImportedName];
 
-                            // удаляем из списка bindings данную кнопку т.к. она будет переименована
+                            // удаляем из списка bindings данную ссылку т.к. кнопка будет переименована
                             // и больше напрямую не связана с импортируемым именем
                             delete path.scope.bindings[btnImportedName];
 
@@ -70,6 +71,7 @@ module.exports = declare(({ assertVersion, options, template }) => {
 
                             // получим все параметры компонента
                             const attributes = btn.referencePaths[0].parent.attributes;
+
                             attributes.forEach((attribute) => {
                                 if (
                                     attribute.name &&
@@ -80,9 +82,9 @@ module.exports = declare(({ assertVersion, options, template }) => {
                                 }
                             });
 
+                            // получаем список необходимых модификаторов для импорта
                             const { size, view, width } = props;
 
-                            // получаем список необходимых модификаторов для импорта
                             const sizeMod = sizes[size];
                             if (sizeMod) {
                                 buttonImports.push(sizeMod);
@@ -104,7 +106,7 @@ module.exports = declare(({ assertVersion, options, template }) => {
                             )} )(Button);`;
                             const component = getComponent();
 
-                            // получаем пыть к выражению в котором используется кнопка
+                            // получаем путь к выражению в котором используется кнопка
                             const btnStatement = getCurrentStatementPath(btn.referencePaths[0].parentPath);
 
                             // вставим сгенерированный компонент перед кнопкой
