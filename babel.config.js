@@ -27,7 +27,7 @@ module.exports = {
         ],
         '@babel/typescript',
     ],
-    // plugins: ['./babel-plugin/bubel-plugin-bem-button.js'],
+    plugins: ['./babel-plugin/bubel-plugin-bem-button.js'],
     env: {
         production: {
             ignore: ['**/*.test.tsx', '**/*.test.ts', '__snapshots__', '__tests__'],
