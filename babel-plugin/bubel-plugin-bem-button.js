@@ -169,7 +169,7 @@ module.exports = declare((api, options) => {
                             ),
                         });
 
-                        console.log(result.body);
+                        // console.log(result.body);
 
                         const currentStatement = getCurrentStatementPath(path);
                         currentStatement.insertBefore(component);
