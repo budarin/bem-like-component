@@ -8,13 +8,15 @@
     "dependencies": {
         "@babel/cli": "^7.12.10",
         "@babel/core": "^7.12.10",
-        "@babel/plugin-syntax-jsx": "^7.12.1",
+        "@babel/helper-plugin-utils": "^7.10.4",
         "@babel/preset-env": "^7.12.11",
         "@babel/preset-react": "^7.12.10",
         "@babel/preset-typescript": "^7.12.7",
+        "@babel/types": "^7.12.11",
         "@bem-react/classname": "^1.5.8",
         "@bem-react/core": "^3.0.2",
         "@bem-react/di": "^2.2.5",
+        "@statoscope/ui-webpack": "^3.2.0",
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
         "@yandex/ui": "^2.60.1",
@@ -33,9 +35,18 @@
         "webpack-cli": "^4.2.0",
         "webpack-dev-server": "^3.11.0"
     },
+    "browserslist": {
+        "production": [
+            "last 2 chrome version"
+        ],
+        "development": [
+            "last 1 chrome version"
+        ]
+    },
     "scripts": {
         "start": "webpack serve --config ./config/webpack/webpack.config.js",
         "test": "jest --passWithNoTests",
-        "upgrade-deps": "yarn upgrade-interactive --latest && yarn upgrad"
+        "build": "sh ./config/webpack/build.sh",
+        "upgrade-deps": "yarn upgrade-interactive --latest && yarn upgrade"
     }
 }

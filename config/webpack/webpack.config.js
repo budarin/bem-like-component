@@ -1,8 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-    mode: 'development',
+const config = {
+    mode: process.env.NODE_ENV || 'development',
     devtool: 'inline-source-map',
     entry: {
         client: [path.resolve('./src/index.tsx')],
@@ -28,7 +28,7 @@ module.exports = {
         writeToDisk: true,
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
         modules: ['node_modules', 'src'],
         alias: {},
     },
@@ -47,3 +47,17 @@ module.exports = {
         ],
     },
 };
+
+if (process.env.NODE_ENV === 'production') {
+    const StatoscopeWebpackPlugin = require('@statoscope/ui-webpack');
+
+    config.plugins.push(
+        new StatoscopeWebpackPlugin({
+            saveTo: path.resolve('./dist/statoscope.html'),
+            name: 'plugibe',
+            open: 'file',
+        }),
+    );
+}
+
+module.exports = config;

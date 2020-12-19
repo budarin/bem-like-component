@@ -13,13 +13,8 @@ const appElement = document.getElementById('app');
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
         <>
-            <Button1 view="default" size="m">
-                Hand made Button
-            </Button1>
-
-            <Button2 view="action" size="l" width="max">
-                Created with factory Button
-            </Button2>
+            <Button1>Hand made Button</Button1>
+            <Button2>Made with plugin Button</Button2>
         </>,
         appElement,
     );

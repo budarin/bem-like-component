@@ -1,3 +1,8 @@
-import { Button, withSizeM, withViewAction, withWidthMax } from '@yandex/ui/Button/desktop';
 import { compose } from '@bem-react/core';
-export const Button2 = compose(withSizeM, withViewAction, withWidthMax)(Button);
+import { Button, withSizeM, withViewAction, withWidthMax } from '@yandex/ui/Button/desktop';
+const Component = compose(withSizeM, withViewAction, withWidthMax)(Button);
+export const ExtButton = ({ children, ...rest }) => (
+    <Component {...rest} size="m" view="action" width="max">
+        {children}
+    </Component>
+);
