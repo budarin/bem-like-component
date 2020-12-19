@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const StatoscopeWebpackPlugin = require('@statoscope/ui-webpack');
 
 const config = {
     mode: process.env.NODE_ENV || 'development',
@@ -50,6 +49,8 @@ const config = {
 };
 
 if (process.env.NODE_ENV === 'production') {
+    const StatoscopeWebpackPlugin = require('@statoscope/ui-webpack');
+
     config.plugins.push(
         new StatoscopeWebpackPlugin({
             saveTo: path.resolve('./dist/statoscope.html'),

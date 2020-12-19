@@ -27,15 +27,8 @@ module.exports = declare(({ assertVersion, options, template }) => {
         max: 'withWidthMax',
     };
 
-    const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`;
-    const getButtonImport = template.statement`import { __IMPORTS__ } from '@yandex/ui/Button/desktop';`;
-
+    const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`();
     const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
-    const argumentShouldBeAnObject = (path) => {
-        if (path.node.arguments[0].type !== 'ObjectExpression') {
-            throw path.buildCodeFrameError('Params should be an object');
-        }
-    };
 
     return {
         name: 'bubel-plugin-bem-button',
@@ -50,93 +43,80 @@ module.exports = declare(({ assertVersion, options, template }) => {
         visitor: {
             ImportDeclaration: {
                 enter(path) {
-                    // console.log(path.getSource())
-                    if (
-                        path.node.specifiers.length > 0 &&
-                        path.node.specifiers[0].imported &&
-                        path.node.specifiers[0].imported.name === 'createButton'
-                    ) {
-                        path.replaceWith(bemCoreImport());
-                        path.skip();
-                    }
-                },
-            },
+                    if (path.node.source.value === '@yandex/ui/Button/desktop/bundle') {
+                        // получаем локальное имя Button
+                        const btnImported = path.node.specifiers.find((spec) => spec.imported.name === 'Button');
 
-            // TODO: убрать
-            CallExpression: {
-                enter(path) {
-                    if (path.node.callee && path.node.callee.name === 'createButton') {
-                        argumentShouldBeAnObject(path);
+                        if (btnImported) {
+                            // указываем импорт общего компонента
+                            path.node.source.value = '@yandex/ui/Button/desktop';
 
-                        // получаем параметры функции
-                        const args = path.node.arguments[0].properties;
+                            // вставляем импорт compose
+                            path.insertBefore(bemCoreImport);
 
-                        // создаем объект props
-                        args.forEach((node) => {
-                            if (
-                                validPropKeys.includes(node.key.name) &&
-                                validPropKeyValues[node.key.name].includes(node.value.value)
-                            ) {
-                                props[node.key.name] = node.value.value;
+                            // получаем алиас Button
+                            const btnImportedName = btnImported.local.name;
+
+                            // запоминаем путь к компонету-кнопки
+                            const btn = path.scope.bindings[btnImportedName];
+
+                            // удаляем из списка bindings данную кнопку т.к. она будет переименована
+                            // и больше напрямую не связана с импортируемым именем
+                            delete path.scope.bindings[btnImportedName];
+
+                            // переименуем компонент
+                            btn.referencePaths[0].node.name = 'Component';
+                            btn.referencePaths[1].node.name = 'Component';
+
+                            // получим все параметры компонента
+                            const attributes = btn.referencePaths[0].parent.attributes;
+                            attributes.forEach((attribute) => {
+                                if (
+                                    attribute.name &&
+                                    validPropKeys.includes(attribute.name.name) &&
+                                    validPropKeyValues[attribute.name.name].includes(attribute.value.value)
+                                ) {
+                                    props[attribute.name.name] = attribute.value.value;
+                                }
+                            });
+
+                            const { size, view, width } = props;
+
+                            // получаем список необходимых модификаторов для импорта
+                            const sizeMod = sizes[size];
+                            if (sizeMod) {
+                                buttonImports.push(sizeMod);
                             }
-                        });
 
-                        const { size, view, width } = props;
+                            const viewMod = views[view];
+                            if (viewMod) {
+                                buttonImports.push(viewMod);
+                            }
 
-                        // получаем список необходимых модификаторов для импорта
-                        const sizeMod = sizes[size];
-                        if (sizeMod) {
-                            buttonImports.push(sizeMod);
+                            const widthMod = widths[width];
+                            if (widthMod) {
+                                buttonImports.push(widthMod);
+                            }
+
+                            // генерируем компонент для нашей кнопки
+                            const getComponent = template.statement`const Component = compose( ${buttonImports.join(
+                                ', ',
+                            )} )(Button);`;
+                            const component = getComponent();
+
+                            // получаем пыть к выражению в котором используется кнопка
+                            const btnStatement = getCurrentStatementPath(btn.referencePaths[0].parentPath);
+
+                            // вставим сгенерированный компонент перед кнопкой
+                            btnStatement.insertBefore(component);
+
+                            // вставляем в импорт нужные модификаторы
+                            buttonImports.forEach((modModule) => {
+                                path.node.specifiers.push(
+                                    t.importSpecifier(t.identifier(modModule), t.identifier(modModule)),
+                                );
+                            });
                         }
-
-                        const viewMod = views[view];
-                        if (viewMod) {
-                            buttonImports.push(viewMod);
-                        }
-
-                        const widthMod = widths[width];
-                        if (widthMod) {
-                            buttonImports.push(widthMod);
-                        }
-
-                        // вставиляем импорты
-                        const buttonImport = getButtonImport({
-                            __IMPORTS__: ['Button'].concat(buttonImports).join(', '),
-                        });
-                        const firstImport = path.find((p) => p.isProgram()).get('body.0');
-
-                        firstImport.insertBefore(buttonImport);
-
-                        const getComponent = template.statement`const Component = compose( ${buttonImports.join(
-                            ', ',
-                        )} )(Button);`;
-                        const component = getComponent();
-
-                        const attributes = [t.jsxSpreadAttribute(t.identifier('rest'))];
-                        Object.keys(props).forEach((key) => {
-                            attributes.push(t.jsxAttribute(t.jsxIdentifier(key), t.stringLiteral(props[key])));
-                        });
-
-                        const result = t.arrowFunctionExpression(
-                            [
-                                t.objectPattern([
-                                    t.objectProperty(t.identifier('children'), t.identifier('children')),
-                                    t.restElement(t.identifier('rest')),
-                                ]),
-                            ],
-                            t.jsxElement(
-                                t.jsxOpeningElement(t.jsxIdentifier('Component'), attributes),
-                                t.jsxClosingElement(t.jsxIdentifier('Component')),
-                                [t.jsxExpressionContainer(t.identifier('children'))],
-                            ),
-                        );
-
-                        const currentStatement = getCurrentStatementPath(path);
-                        currentStatement.insertBefore(component);
-
-                        // формируем новое выражение вместо createButton
-                        path.replaceWith(result);
-                        path.skip();
                     }
                 },
             },
