@@ -73,7 +73,9 @@ module.exports = declare(({ assertVersion, options, template }) => {
                             // получим все параметры компонента
                             // ищем btn.referencePaths у которого тип === "JSXOpeningElement"
                             // и получаем его аттрибуты
-                            const attributes = btn.referencePaths[0].parent.attributes;
+                            const attributes = btn.referencePaths.find(
+                                (node) => node.container.type === 'JSXOpeningElement',
+                            ).parent.attributes;
 
                             attributes.forEach((attribute) => {
                                 if (
