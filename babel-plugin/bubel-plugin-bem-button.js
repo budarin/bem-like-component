@@ -29,9 +29,10 @@ module.exports = declare((api, options) => {
     };
     const validPropKeys = ['size', 'width', 'view'];
 
+    const componentTag = 'Component';
     const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`();
     const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
-    const getComponent = (imports) => template.statement`const Component = compose( ${imports.join(', ')} )(Button);`();
+    const getComponent = (imports) => template.statement`const ${componentTag} = compose( ${imports.join(', ')} )(Button);`();
 
     return {
         name: 'bubel-plugin-bem-button',
@@ -59,18 +60,18 @@ module.exports = declare((api, options) => {
                             path.insertBefore(bemCoreImport);
 
                             // получаем алиас Button
-                            const btnImportedName = btnImported.local.name;
+                            const btnLocalName = btnImported.local.name;
 
                             // запоминаем путь к binding компонету-кнопки
-                            const btn = path.scope.bindings[btnImportedName];
+                            const btn = path.scope.bindings[btnLocalName];
 
                             // удаляем из списка bindings данную ссылку т.к. кнопка будет переименована
                             // и больше напрямую не связана с импортируемым именем
-                            path.scope.removeBinding(btnImportedName);
+                            path.scope.removeBinding(btnLocalName);
 
                             // переименуем компонент
-                            btn.referencePaths[0].node.name = 'Component';
-                            btn.referencePaths[1].node.name = 'Component';
+                            btn.referencePaths[0].node.name = componentTag;
+                            btn.referencePaths[1].node.name = componentTag;
 
                             // получим все параметры компонента
                             const attributes = btn.referencePaths.find(
@@ -108,7 +109,7 @@ module.exports = declare((api, options) => {
                             // генерируем компонент для нашей кнопки
                             const component = getComponent(buttonImports);
 
-                            // добавляем Button в bindings импорту
+                            // добавляем Button из Component в bindings импорту
                             // path.scope.registerBinding('', ?);
 
                             // получаем путь к выражению в котором используется кнопка
