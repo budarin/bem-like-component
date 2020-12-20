@@ -64,7 +64,7 @@ module.exports = declare(({ assertVersion, options, template }) => {
 
                             // удаляем из списка bindings данную ссылку т.к. кнопка будет переименована
                             // и больше напрямую не связана с импортируемым именем
-                            delete path.scope.bindings[btnImportedName];
+                            path.scope.removeBinding(btnImportedName);
 
                             // переименуем компонент
                             btn.referencePaths[0].node.name = 'Component';
@@ -105,6 +105,9 @@ module.exports = declare(({ assertVersion, options, template }) => {
 
                             // генерируем компонент для нашей кнопки
                             const component = getComponent(buttonImports);
+
+                            // добавляем Button в bindings импорту
+                            // path.scope.registerBinding('', ?);
 
                             // получаем путь к выражению в котором используется кнопка
                             const btnStatement = getCurrentStatementPath(btn.referencePaths[0].parentPath);
