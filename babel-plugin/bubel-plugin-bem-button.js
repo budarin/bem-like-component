@@ -9,25 +9,25 @@ module.exports = declare((api, options) => {
     let props = {};
     let buttonImports = [];
 
-    const validPropKeys = ['size', 'width', 'view'];
-    const validPropKeyValues = {
-        size: ['s', 'm', 'l'],
-        width: ['auto', 'max'],
-        view: ['default', 'action'],
-    };
     const sizes = {
         m: 'withSizeM',
         s: 'withSizeS',
         l: 'withSizeL',
     };
-    const views = {
-        default: 'withViewDefault',
-        action: 'withViewAction',
-    };
     const widths = {
         auto: 'withWidthAuto',
         max: 'withWidthMax',
     };
+    const views = {
+        default: 'withViewDefault',
+        action: 'withViewAction',
+    };
+    const validPropKeyValues = {
+        size: ['s', 'm', 'l'],
+        width: ['auto', 'max'],
+        view: ['default', 'action'],
+    };
+    const validPropKeys = ['size', 'width', 'view'];
 
     const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`();
     const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
