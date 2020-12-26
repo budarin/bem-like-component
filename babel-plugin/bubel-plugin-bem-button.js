@@ -32,7 +32,8 @@ module.exports = declare((api, options) => {
     const componentTag = 'Component';
     const bemCoreImport = template.statement`import { compose } from '@bem-react/core';`();
     const getCurrentStatementPath = (path) => path.findParent((parent) => parent.isStatement());
-    const getComponent = (imports) => template.statement`const ${componentTag} = compose( ${imports.join(', ')} )(Button);`();
+    const getComponent = (imports) =>
+        template.statement`const ${componentTag} = compose( ${imports.join(', ')} )(Button);`();
 
     return {
         name: 'bubel-plugin-bem-button',
@@ -67,6 +68,7 @@ module.exports = declare((api, options) => {
 
                             // удаляем из списка bindings данную ссылку т.к. кнопка будет переименована
                             // и больше напрямую не связана с импортируемым именем
+                            // should I do it ??
                             path.scope.removeBinding(btnLocalName);
 
                             // переименуем компонент
@@ -110,6 +112,7 @@ module.exports = declare((api, options) => {
                             const component = getComponent(buttonImports);
 
                             // добавляем Button из Component в bindings импорту
+                            // should I do it ??
                             // path.scope.registerBinding('', ?);
 
                             // получаем путь к выражению в котором используется кнопка
