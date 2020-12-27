@@ -1,5 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const moderntInclude = require('./moderntInclude');
+
+const srcPath = path.resolve('./src');
 
 const config = {
     mode: process.env.NODE_ENV || 'development',
@@ -36,7 +39,7 @@ const config = {
         rules: [
             {
                 test: /\.(ts|tsx|js|jsx|json)$/,
-                include: [path.resolve('./src')],
+                include: moderntInclude([srcPath]),
                 exclude: /node_modules/,
                 use: ['babel-loader'],
             },
