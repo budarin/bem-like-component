@@ -3,10 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const moderntInclude = require('./moderntInclude');
 
 const srcPath = path.resolve('./src');
+const isProd = process.env.NODE_ENV === 'production';
 
 const config = {
     mode: process.env.NODE_ENV || 'development',
-    devtool: 'inline-source-map',
+    devtool: isProd ? false : 'inline-source-map',
     entry: {
         client: [path.resolve('./src/index.tsx')],
     },
@@ -25,10 +26,14 @@ const config = {
         hot: true,
         open: true,
         port: 3000,
-        overlay: true,
+        client: {
+            overlay: false,
+        },
         compress: true,
         historyApiFallback: true,
-        writeToDisk: true,
+        devMiddleware: {
+            writeToDisk: true,
+        },
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
@@ -52,7 +57,7 @@ const config = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-    const StatoscopeWebpackPlugin = require('@statoscope/ui-webpack');
+    const StatoscopeWebpackPlugin = require('@statoscope/webpack-plugin').default;
 
     config.plugins.push(
         new StatoscopeWebpackPlugin({
